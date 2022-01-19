@@ -16,11 +16,23 @@
         try{
             $connection=new PDO('mysql:host='.self::server.';dbname='.self::database.';charset='.self::codefication,
             self::user,self::password);
-            var_dump($connection);
+            $this->createData($connection);
             return $connection;
         }catch(PDOException $ex){
             echo "Ejecucion erronea en la conexion de la base de datos -> ".$ex->getMessage();
         }
+    }
+
+    private function createData($connection){
+        $fileSQL=file_get_contents('crud_php.sql');
+        var_dump($fileSQL);
+        // $stm=$connection->prepare($sql);
+        // $stm->execute();
+        // if($stm){
+        //     echo "Creacion con exito";
+        // }else{
+        //     echo "No se ha podido crear";
+        // }
     }
 
 }
