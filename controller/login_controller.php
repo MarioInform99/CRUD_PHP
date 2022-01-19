@@ -13,6 +13,7 @@ class LoginController{
     public function LoginEnter(){
         // var_dump($this->ObjUser);
         // $_SESSION['login']['user']="Mario";
+        $this->ObjUser->LoginCheck();
         $this->checkRequestLogin($_REQUEST);
         if(!empty($_REQUEST['email']) && isset($_REQUEST['email'])){
             $_SESSION['login']['email']=$_REQUEST['email'];
