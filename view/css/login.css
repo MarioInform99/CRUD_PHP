@@ -1,0 +1,36 @@
+.contenedor {
+  position: absolute;
+  left: 30%;
+  border-radius: 10px;
+  top: 20%;
+  padding-top: 4%;
+  width: 30%;
+  height: 50%;
+  box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+}
+.icon_login svg {
+  margin-left: 40%;
+  padding: 10px;
+  border-radius: 60%;
+  background-color: #8d448b;
+}
+form {
+  padding: 10px;
+}
+.btn_sub {
+  position: absolute;
+  border: 0px;
+  border-radius: 5px;
+  color: white;
+  width: 30%;
+  height: 15%;
+  margin-left: 30%;
+  background-color: #8d448b;
+}
+
+body,
+input {
+  background-color: rgb(148, 148, 148);
+}
