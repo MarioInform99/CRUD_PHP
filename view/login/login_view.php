@@ -18,6 +18,6 @@
             <input type="submit" class="btn_sub" value="Entrar"/>
         </form>
     </div>
-
+    <script src="./libs/index.js" type="module"></script>
 </body>
 </html>
