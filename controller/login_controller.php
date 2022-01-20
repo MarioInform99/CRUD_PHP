@@ -21,6 +21,7 @@ class LoginController{
         if(!empty($_REQUEST['password']) && isset($_REQUEST['password'])){
             $_SESSION['login']['password']=$_REQUEST['password'];
         }
+        
         var_dump($_SESSION);
        }
     /**
