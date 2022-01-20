@@ -1,7 +1,4 @@
-CREATE DATABASE IF NOT EXISTS 'crud_php';
-USE 'crud_php';
-
-CREATE TABLE IF NOT EXISTS 'usuario'(
+CREATE TABLE IF NOT EXISTS `usuario`(
     ID int NOT NULL AUTO_INCREMENT,
     CORREO varchar(255) NOT NULL,
     NOMBRE varchar(30) NOT NULL,
