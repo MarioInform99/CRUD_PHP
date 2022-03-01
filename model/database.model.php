@@ -18,8 +18,9 @@
             self::user,self::password);
             return $connection;
         }catch(PDOException $ex){
-            echo "Ejecucion erronea en la conexion de la base de datos -> ".$ex->getMessage();
-        }
+            print("Ejecucion erronea en la conexion de la base de datos -> ".$ex->getMessage());
+            die();
+       }
     }
 
     /**

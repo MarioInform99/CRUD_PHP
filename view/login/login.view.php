@@ -10,12 +10,13 @@
         </div>
         <form class="formulario" id="login" method="POST" action=""> 
            <div class="form-group">
-                <input type="text"class="form-control" name="email" id="email" placeholder="Correo electronico"/>
+                <input type="text"class="form-control" name="email" id="email" autocomplete="username" placeholder="Correo electronico"/>
            </div> <br/>
            <div class="form-group">
-                <input type="password"class="form-control" name="password" id="password" placeholder="Contraseña"/>
+                <input type="password"class="form-control" name="password" autocomplete="current-password" id="password" placeholder="Contraseña"/>
            </div><br/>
-            <input type="submit" class="btn_sub" value="Entrar"/>
+            <input type="submit" class="btn_sub"  value="Entrar"/>
+            <button class="btn_sub" id="registro" name="register">Registrarse</button>
         </form>
     </div>
     <script src="./libs/index.js" type="module"></script>
