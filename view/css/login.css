@@ -9,6 +9,17 @@
   -webkit-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
   -moz-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
 }
+.contenedor_register {
+  margin-left: 30%;
+  border-radius: 10px;
+  margin-top: 5%;
+  padding-top: 4%;
+  width: 40%;
+  height: 80%;
+  box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
+}
 .icon_login svg {
   margin-left: 40%;
   padding: 10px;
@@ -26,6 +37,15 @@ form {
   height: 15%;
   margin-left: 30%;
   background-color: #8d448b;
+}
+.btn_sub_regist {
+  border: 0px;
+  border-radius: 5px;
+  color: white;
+  margin-left: 30%;
+  background-color: #8d448b;
+  height: 10%;
+  width: 30%;
 }
 #registro {
   margin-top: 10px;
