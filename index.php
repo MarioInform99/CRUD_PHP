@@ -9,15 +9,12 @@ $User=new LoginController();
 if(session_status()==PHP_SESSION_NONE){session_start();}
 //Verificamos si se ha creado el login de session, que es un 
 //array
-if(isset($_SESSION['login[status]']) && $_SESSION['login[status]']==1){
+if(isset($_SESSION['info_user']) && $_SESSION['info_user[status]']==1){
     require_once('./view/crud/crud.php');
     die();
 }else if(isset($_REQUEST['register'])){
-    var_dump($_REQUEST);
-    require_once('./view/login/register.view.php');
-    die();
+    $User->userRegister();
 }else{
-    var_dump($_REQUEST);
     //Si no cumple la condicion iniciamos 
-    $User->LoginEnter();
+    $User->userLogin();
 }

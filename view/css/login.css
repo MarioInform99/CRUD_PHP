@@ -1,10 +1,10 @@
 .contenedor {
-  margin-left: 30%;
+  margin-left: 35%;
   border-radius: 10px;
   margin-top: 10%;
   padding-top: 4%;
   width: 30%;
-  height: 50%;
+  height: 55%;
   box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
   -webkit-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
   -moz-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
@@ -15,7 +15,7 @@
   margin-top: 5%;
   padding-top: 4%;
   width: 40%;
-  height: 80%;
+  height: 82%;
   box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
   -webkit-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
   -moz-box-shadow: -1px -2px 14px 5px rgba(0, 0, 0, 0.45);
@@ -35,16 +35,16 @@ form {
   color: white;
   width: 30%;
   height: 15%;
-  margin-left: 30%;
+  margin-left: 33%;
   background-color: #8d448b;
 }
 .btn_sub_regist {
   border: 0px;
   border-radius: 5px;
   color: white;
-  margin-left: 30%;
+  margin-left: 10%;
   background-color: #8d448b;
-  height: 10%;
+  height: 12%;
   width: 30%;
 }
 #registro {
