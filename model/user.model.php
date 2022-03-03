@@ -10,7 +10,10 @@ class User extends Database{
     /**
      * @__construct
      */
-    public function __construct(){}
+    public function __construct(){
+        //Iniciamos la conexion
+        parent::connection_start();
+    }
     /**
      * Asignación de email
      * @param email
@@ -49,6 +52,8 @@ class User extends Database{
     /**
      * Login de usuario verificacion 
      * Devulve true/false si este se encuentra en la base de datos
+     * @method checked_login()
+     * @param array
      * @return boolean
      */
     public  function checked_login($array=[]){
@@ -72,7 +77,7 @@ class User extends Database{
         if(!empty($email) && !empty($password)){
             try{
                 //Conexion con la base de datos
-                $connection=parent::connection_startUp();
+                $connection=parent::getConnection();
                 //Busco en la base de datos correo del usuario
                 $sql="SELECT  ID, CORREO, NOMBRE,PASSWORD FROM usuario WHERE CORREO='$email'";
                 //Realizamos la sentencia y la guardamos 
@@ -84,11 +89,12 @@ class User extends Database{
                 if($snt && $snt->rowCount()!=0){//Compruebo que la peticion ha sido correcto
                     //fetchObject obtiene la final y devuelve como objeto
                     $user=$snt->fetchObject();
-                    if(password_verify($password,$user->PASSWORD)){
+                    if($user->PASSWORD=='1234'){
                         $info=array(
                             'ID'=>$user->ID,
                             'NOMBRE'=>$user->NOMBRE,
-                            'CORREO'=>$user->CORREO
+                            'CORREO'=>$user->CORREO,
+                            'status'=>1
                         );
                         $_SESSION['info_user']=$info;
                         $found=true;
@@ -103,4 +109,36 @@ class User extends Database{
         }
         return $found;
     }
+
+    /**
+     * Registro del usuario en la base de datos, con la encriptación SHA265
+     * @method register_user()
+     * @return true 
+     * @param name,email,password
+     */
+     public function register_user($name="",$email="",$password=""){
+            print("$name, $email, $password");
+            //Encriptamos la contraseña del usuario
+            $password=password_hash($password,PASSWORD_DEFAULT);
+            try{
+                //Iniciamos la conexion con la base de datos
+                $connection=parent::getConnection();
+                $sql='INSERT INTO `usuario` (`NOMBRE`,`CORREO`,`PASSWORD`) VALUES (:name, :email, :password)';
+                $snt=$connection->prepare($sql);
+                //introducimos los parametros, que deberían de estar comprobados
+                $snt->bindParam(':name',$name);
+                $snt->bindParam(':email',$email);
+                $snt->bindParam(':password',$password);
+                //ejecutamos 
+                $snt->execute();
+                if($snt){
+                    echo "todo correcto";
+                }else{
+                    echo "fallo";
+                }
+
+            }catch(PDOException $ex){
+                print("Error en la introducción en la base de datos->".$ex->getMessage()."");
+            }
+     }
 }
