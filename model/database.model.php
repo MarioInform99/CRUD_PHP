@@ -2,56 +2,55 @@
 /**
  * Clase de base de datos en la que nos conectaremos
  * @author "Mario Salvatierra"
- *  @param Database 
+ *  @Class Database 
  */
  class Database{
-    const user="root";
-    const password="";
-    const database="crud_php";
-    const codefication="utf8";
-    const server="localhost";
+     /**
+      * Iniciamos los atributos esenciales para conectarnos a la base de datos
+      Estos deben de ser privados
+      * @atributos
+      */
+    private const USER="root";
+    private const PASSWORD="";
+    private const DATABASE="crud_php";
+    private const CODE="utf8";
+    private const SERVER="localhost";
+    public $connection;
 
-    protected  function connection_startUp(){
+    /**
+     * Esta funcion nos devolvera un array que se crea para poder realizar peticiones o consultas en 
+     * la base de datos
+     * nos deberia de devolver un objeto PDO
+     * @return connection
+     */
+    public function getConnection(){
+        return $this->connection;
+    }
+    /**
+     * Asignamos un objeto a la conexion
+     * @param Object PDO 
+     * @return void
+     */
+    public function setConnection($ObjectPDO){
+        $this->connection=$ObjectPDO;
+    }
+    /**
+     * Instanciamos la clase PDO 
+     * @return void
+     */
+    protected  function connection_start(){
         //Inicializamos la conexion con la clase PDO
         try{
-            $connection=new PDO('mysql:host='.self::server.';dbname='.self::database.';charset='.self::codefication,
-            self::user,self::password);
-            return $connection;
+            $connection=new PDO('mysql:host='.self::SERVER
+                        .';dbname='.self::DATABASE
+                        .';charset='.self::CODE,
+                        self::USER,self::PASSWORD);
+            //Pasamos el objeto 
+            $this->setConnection($connection);
         }catch(PDOException $ex){
             print("Ejecucion erronea en la conexion de la base de datos -> ".$ex->getMessage());
             die();
        }
     }
-
-    /**
-     * Problema de eficiencia a la hora de usar esta funcion ya que siempre que necesitamos
-     * conectarnos a la base de datos tenemos que pasar por esta funcion asi que es poco eficiente
-     * Para comprobar O crear la base de datos asi que lo meteremos entre comillas 
-    //  */
-    // private function createData($connection){
-    //     //Con file_get_contents obtenemos en un solo String todo el archivo
-    //     //Posteriormente convertiremos en un array con el delimitador ;
-    //     $fileSQL=file_get_contents('crud_php.sql');
-    //     $commands=explode(";",$fileSQL);
-    //     try{
-    //         $stmSL=$connection->query('SELECT * FROM `usuario`;');
-    //     //Capturamos el error en caso de que no encontremos nada
-    //     }catch(PDOException $ex){
-    //         foreach($commands as $command){
-    //             try{
-    //                 $stm=$connection->query($command);
-    //             }catch(PDOException $ex){
-    //                 echo $ex->getMessage()."<br/>";
-    //             }
-    //         }
-    //     }
-    //     // $stm=$connection->prepare($sql);
-    //     // $stm->execute();
-    //     // if($stm){
-    //     //     echo "Creacion con exito";
-    //     // }else{
-    //     //     echo "No se ha podido crear";
-    //     // }
-    // }
 
 }
