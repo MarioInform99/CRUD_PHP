@@ -79,17 +79,9 @@ class User extends Database{
                 //Conexion con la base de datos
                 $connection=parent::getConnection();
                 //Busco en la base de datos correo del usuario
-                $sql="SELECT  ID, CORREO, NOMBRE,PASSWORD FROM usuario WHERE CORREO='$email'";
-                //Realizamos la sentencia y la guardamos 
-                //Esta nos debe de volver un array de objetos
-                //Estos objetos tienen nombre de los atributos o campos
-                // de la tabla
-                $snt=$connection->query($sql,PDO::FETCH_OBJ);
-                //Verificamos si contiene valor
-                if($snt && $snt->rowCount()!=0){//Compruebo que la peticion ha sido correcto
-                    //fetchObject obtiene la final y devuelve como objeto
-                    $user=$snt->fetchObject();
-                    if($user->PASSWORD=='1234'){
+                $user=$this->getUsers($email);
+                if($user){
+                    if(password_verify($password,$user->PASSWORD)){
                         $info=array(
                             'ID'=>$user->ID,
                             'NOMBRE'=>$user->NOMBRE,
@@ -105,7 +97,6 @@ class User extends Database{
             }catch(PDOException $ex){
                 print("Error en la verificacion de la base de datos ->".$ex->getMessage());
             }
-
         }
         return $found;
     }
@@ -117,28 +108,54 @@ class User extends Database{
      * @param name,email,password
      */
      public function register_user($name="",$email="",$password=""){
-            print("$name, $email, $password");
             //Encriptamos la contraseña del usuario
             $password=password_hash($password,PASSWORD_DEFAULT);
             try{
-                //Iniciamos la conexion con la base de datos
-                $connection=parent::getConnection();
-                $sql='INSERT INTO `usuario` (`NOMBRE`,`CORREO`,`PASSWORD`) VALUES (:name, :email, :password)';
-                $snt=$connection->prepare($sql);
-                //introducimos los parametros, que deberían de estar comprobados
-                $snt->bindParam(':name',$name);
-                $snt->bindParam(':email',$email);
-                $snt->bindParam(':password',$password);
-                //ejecutamos 
-                $snt->execute();
-                if($snt){
-                    echo "todo correcto";
+                $user=$this->getUsers($email);
+                if($user==false){
+                    $connection=parent::getConnection();
+                    $sql='INSERT INTO `usuario` (`NOMBRE`,`CORREO`,`PASSWORD`) VALUES (:name, :email, :password)';
+                    $snt=$connection->prepare($sql);
+                    //introducimos los parametros, que deberían de estar comprobados
+                    $snt->bindParam(':name',$name);
+                    $snt->bindParam(':email',$email);
+                    $snt->bindParam(':password',$password);
+                    //ejecutamos 
+                    $snt->execute();
+                    if($snt){
+                        $msg="<span class=\"green\">Usuario registrado, correctamente</span>";
+                    }else{
+                        $msg="<span class=\"red\">Fallo al registrar el usuario</span>";
+                    }
                 }else{
-                    echo "fallo";
+                    $msg= "<span class=\"red\">El correo ya existe</span>";
                 }
-
             }catch(PDOException $ex){
                 print("Error en la introducción en la base de datos->".$ex->getMessage()."");
             }
      }
+
+     /**
+      * Obtenemos todos los usuarios de la base de datos
+      *@param String or NULL
+      *@return Object
+      */
+      public function getUsers($condition=null){
+        if($condition==null || empty($condition)){
+            $sql='SELECT ID,NOMBRE, CORREO, PASSWORD FROM usuario;';
+        }else{
+            $sql="SELECT ID,NOMBRE,CORREO, PASSWORD FROM usuario WHERE CORREO='$condition';";
+        }
+        try{
+            //Obtenemos el objeto que nos sirve para realizar peticiones en la base de datos.
+            $connection=parent::getConnection();
+            $snt=$connection->query($sql, PDO::FETCH_OBJ);
+            if($snt){
+                return $snt->fetchObject();
+            }
+            return false;
+        }catch(PDOException $ex){
+            print('Error en la consulta de la base de datos.->'.$ex->getMessage());
+        }
+      }
 }
