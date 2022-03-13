@@ -1,15 +1,17 @@
 <?php
 /**
- * Controlador del login 
+ * Controlador del login y verificamos las entradas del usuario.
  * @author Mario Salvatierra
  */
-
 require_once('./model/user.model.php');
+require_once('./model/message.model.php');
 class LoginController{
     public  $ObjUser;
+    public $msg;
     public function __construct(){
         //Usamos la clase user_model que se encuentra en el model
         $this->ObjUser=new User();
+        $this->msg=new Message();
     }
     /**
      * Controlamos la entrada de los datos del login
@@ -43,6 +45,7 @@ class LoginController{
      * @return void
      */
     public  function userRegister(){
+        $msgError="";
         $error=false;
         //Este array posteriormente se implementara en otra clase para poder implementar el feedback al usuario
         $msg=array();
@@ -55,10 +58,17 @@ class LoginController{
                 }
             }
         }
-        var_dump($error);
+        if(isset($_REQUEST['password']) && isset($_REQUEST['repeat_password']) && $_REQUEST['password']==$_REQUEST['repeat_password']){
+            $error=true;
+            array($msg,'repeat_password');
+        }
         //Verificamos que no exita ningun error
         if(!$error){
-            $this->ObjUser->register_user($_REQUEST['name'],$_REQUEST['email'],$_REQUEST['password']);
+            $this->ObjUser->register_user($_REQUEST['name'],$_REQUEST['email_regis'],$_REQUEST['password_regis']);
+            require_once('./view/login/login.view.php');
+            die();
+        }else if(count($_REQUEST)!=0){
+            $msgError=$this->msg->getMessageRegister($msg,$_REQUEST);
         }
         require_once('./view/login/register.view.php');
         die();
