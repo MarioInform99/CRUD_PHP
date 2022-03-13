@@ -9,7 +9,7 @@ $User=new LoginController();
 if(session_status()==PHP_SESSION_NONE){session_start();}
 //Verificamos si se ha creado el login de session, que es un 
 //array
-if(isset($_SESSION['info_user']) && $_SESSION['info_user[status]']==1){
+if(isset($_SESSION['info_user']) && $_SESSION['info_user']['status']==1){
     require_once('./view/crud/crud.php');
     die();
 }else if(isset($_REQUEST['register'])){

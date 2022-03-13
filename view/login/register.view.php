@@ -14,24 +14,40 @@
                    Nombre:
                </label>
                 <input type="text"class="form-control" name="name" id="name" autocomplete="off" placeholder="Nombre usuario"/>
+                <?php if(isset($msgError['name']) && !empty($msgError['name'])){
+                            echo "<span class=\"red\">".$msgError['name']."</span>";
+                        }
+                ?>
            </div> <br/>
            <div class="form-group">
-               <label for="email">
+               <label for="email_regis">
                    Correo electronico:
                </label>
-                <input type="text"class="form-control" name="email" id="email" autocomplete="off" placeholder="Correo electronico"/>
+                <input type="text"class="form-control" name="email_regis" id="email_regis" autocomplete="off" placeholder="Correo electronico"/>
+                <?php if(isset($msgError['email_regis']) && !empty($msgError['email_regis'])){
+                            echo "<span class=\"red\">".$msgError['email_regis']."</span>";
+                        }
+                ?>
            </div> <br/>
            <div class="form-group">
-               <label for="password">
+               <label for="password_regis">
                    Contraseña:
                </label>
-                <input type="password"class="form-control" name="password" autocomplete="off" id="password" placeholder="Contraseña"/>
+                <input type="password"class="form-control" name="password_regis" autocomplete="off" id="password_regis" placeholder="Contraseña"/>
+                <?php if(isset($msgError['password_regis']) && !empty($msgError['password_regis'])){
+                            echo "<span class=\"red\">".$msgError['password']."</span>";
+                        }
+                ?>
            </div><br/>
            <div class="form-group">
                <label for="repeat_password">
                    Repite la contraseña:
                </label>
                 <input type="password" class="form-control" name="repeat_password" autocomplete="off" id="repeat_password" placeholder="Contraseña"/>
+                <?php if(isset($msgError['repeat_password']) && !empty($msgError['repeat_password'])){
+                            echo "<span class=\"red\">".$msgError['repeat_password']."</span>";
+                        }
+                ?>
             </div><br/>
             <a href="?">Volver al login</a>
             <input type="submit" class="btn_sub_regist"  name="register" value="Registrarse"/>

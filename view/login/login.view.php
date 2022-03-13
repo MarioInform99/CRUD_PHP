@@ -18,6 +18,11 @@
             <input type="submit" class="btn_sub"  value="Entrar"/>
             <button class="btn_sub" id="registro" name="register">Registrarse</button>
         </form>
+        <?php
+            if(isset($msg) && !empty($msg)){
+                echo $msg;
+            }
+        ?>
     </div>
     <script src="./libs/index.js" type="module"></script>
 </body>
